@@ -5,15 +5,25 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-@WebFilter
+@WebFilter(filterName = "AdminFilter",urlPatterns = "/login")
 public class AdminFilter implements Filter {
     @Override
+    public void init(FilterConfig filterConfig) throws ServletException {}
+
+    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String role=(String) servletRequest.getAttribute("role");
-        if ("admin".equals(role)){
-            ((HttpServletRequest)servletRequest).getRequestDispatcher("admin/login.jsp").forward(servletRequest,servletResponse);
+        String role=servletRequest.getParameter("role");
+        if ("0".equals(role)){
+           servletRequest.getRequestDispatcher("/admin/login").forward(servletRequest,servletResponse);
         }else {
-            ((HttpServletResponse)servletResponse).sendRedirect("main.jsp");
+            servletRequest.getRequestDispatcher("/login").forward(servletRequest,servletResponse);
         }
     }
+
+    @Override
+    public void destroy() {
+
+    }
+
+
 }

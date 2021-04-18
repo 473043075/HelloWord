@@ -1,35 +1,36 @@
-<!DOCTYPE html>
+<%@page import="org.example.javabean.User" %>
+<%@page import="org.example.javabean.Admin" %>
+
+<%--
+  Created by IntelliJ IDEA.
+  User: 小豆芽
+  Date: 2021/4/12
+  Time: 16:56
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>图书馆</title>
-    <link rel="stylesheet" href="/layui/css/layui.css"/>
-    <style>
-        .layui-show{
-            width: 100%;
-            height: 100%;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" >
+    <title>图书馆管理端</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
 </head>
 <body class="layui-layout-body">
-
 <%
-    User user = (User) request.getSession().getAttribute("user");
+    Admin user = (Admin) request.getSession().getAttribute("admin");
 %>
-
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo" style="font-size: 25px">图书馆</div>
+        <div class="layui-logo" style="font-size: 25px">图书馆管理端</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="<%=user.getHeader()%>"
+                    <img src="<%=user.getUsername()%>"
                          class="layui-nav-img">
-                    <%=user.getReader()%>
+                    管理员
                 </a>
-                <dl class="layui-nav-child" style="height: fit-content">
+                <dl class="layui-nav-child">
                     <dd><a href="javascript:;" name="borrow"
                            title="个人信息"
                            content="./personalInfo.jsp" id="4">个人信息
@@ -119,12 +120,10 @@
     layui.use(['element'], function () {
         var element = layui.element;
         var $ = layui.$;
-
         $("[name=borrow]").click(function () {
             //获取当前项的id和content
             var id = $(this).attr("id");
             var content = $(this).attr("content");
-
             //判断标签是否存在
             if ($("li[lay-id=" + id + "]").length == 0) {
                 //添加新标签

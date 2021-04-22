@@ -19,7 +19,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="./layui/css/layui.css"
+    <link rel="stylesheet" href="layui/css/layui.css"
           media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
     <style>
@@ -88,56 +88,64 @@
 
 <div id="page" style="display: flex;justify-content: center;"></div>
 
-<script src="./layui/layui.js" charset="utf-8"></script>
-<!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
+</body>
+<script src="layui/layui.js" charset="utf-8"></script>
 <script>
     layui.use(['laypage', 'layer'], function () {
-            var laypage = layui.laypage
-                , layer = layui.layer;
-            var $ = layui.$;
-            var count = 0, page = 1, limit = 5;
+        var laypage = layui.laypage
+            , layer = layui.layer;
+        var $ = layui.$;
+        var count = 0, page = 1, limit = 5;
 
-            $(document).ready(function () {
-                //进入页面先加载数据
-                getContent(1, limit);
-                //得到数量count后，渲染表格
-                laypage.render({
-                    elem: 'page',
-                    count: count,
-                    curr: page,
-                    limits: [5, 10, 15, 20],
-                    limit: limit,
-                    layout: ['count', 'prev', 'page', 'next', 'limit'],
-                    jump: function (obj, first) {
-                        if (!first) {
-                            getContent(obj.curr, obj.limit);
-                            //更新当前页码和当前每页显示条数
-                            page = obj.curr;
-                            limit = obj.limit;
-                        }
+        $(document).ready(function () {
+            //进入页面先加载数据
+            getContent(1, limit);
+            //得到数量count后，渲染表格
+            laypage.render({
+                elem: 'page',
+                count: count,
+                curr: page,
+                limits: [5, 10, 15, 20],
+                limit: limit,
+                layout: ['count', 'prev', 'page', 'next', 'limit'],
+                jump: function (obj, first) {
+                    if (!first) {
+                        getContent(obj.curr, obj.limit);
+                        //更新当前页码和当前每页显示条数
+                        page = obj.curr;
+                        limit = obj.limit;
                     }
-                });
+                }
             });
-
-            function getContent(page, size) {
-                $.ajax({
-                    type: 'POST',
-                    url: "/book/search",
-                    async: false, //开启同步请求，为了保证先得到count再渲染表格
-                    data: JSON.stringify({
-                        pageNum: page,
-                        pageSize: size
-                    }),
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-                        $('#content').load(location.href + " #content");
-                        //count从Servlet中得到
-                        count = data;
-                    }
+            $("div#content a:first").click(function () {
+                layer.open({
+                    type: 1,
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['420px', '240px'], //宽高
+                    content: '弹出层'
                 });
+                console.log("点击了a标签");
+            });
+        });
+
+                function getContent(page, size) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "/book/search",
+                        async: false, //开启同步请求，为了保证先得到count再渲染表格
+                        data: JSON.stringify({
+                            pageNum: page,
+                            pageSize: size
+                        }),
+                        contentType: "application/json;charset=utf-8",
+                        success: function (data) {
+                            $('#content').load(location.href + " #content");
+                            //count从Servlet中得到
+                            count = data;
+                        }
+                    });
+                }
             }
-        }
-    );
+        );
 </script>
-</body>
 </html>

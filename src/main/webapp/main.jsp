@@ -26,8 +26,8 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="<%=user.getHeader()%>"
-                         class="layui-nav-img">
+<%--                    <img src="<%=user.getHeader()%>"--%>
+<%--                         class="layui-nav-img">--%>
                     <%=user.getReader()%>
                 </a>
                 <dl class="layui-nav-child" style="height: fit-content">

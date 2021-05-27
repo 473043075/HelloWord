@@ -16,7 +16,6 @@ public class BorrowDao {
                     JDBCUtil.getInstance().executeQueryRS(sql,
                             new Object[]{(pageNum - 1) * pageSize,
                                     pageSize})) {
-            System.out.println("打印rs：" + rs.getRow());
             while (rs.next()){
                 Borrow borrow=new Borrow(rs.getString("name"),
                         rs.getDate("borrow_date"),
@@ -25,7 +24,6 @@ public class BorrowDao {
                         rs.getString("illegal"),
                         rs.getString("manager_id"));
                 borrows.add(borrow);
-                System.out.println(rs.getDate("borrow_date"));
             }
         }catch (SQLException e){
             e.printStackTrace();

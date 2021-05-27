@@ -10,18 +10,22 @@ import java.util.List;
 
 public class BorrowDao {
     public List<Borrow> selectAll(int pageNum,int pageSize){
-        String sql="select borrow_books.*,borrow_books.book_id,borrow_books.borrow_date,borrow_books.end_date,borrow_books.return_date,borrow_books.illegal,borrow_books.manmger_id from borrow_books";
+        String sql="SELECT * FROM borrow_books a LEFT JOIN books b ON a.book_id=b.id limit ?,?";
         List<Borrow>borrows=new ArrayList<>();
-        try(ResultSet rs= JDBCUtil.getInstance().executeQueryRS(sql,new Object[]{(pageNum-1)*pageSize,pageSize})) {
+        try(ResultSet rs =
+                    JDBCUtil.getInstance().executeQueryRS(sql,
+                            new Object[]{(pageNum - 1) * pageSize,
+                                    pageSize})) {
+            System.out.println("打印rs：" + rs.getRow());
             while (rs.next()){
-                Borrow borrow=new Borrow(rs.getInt("id"),
+                Borrow borrow=new Borrow(rs.getString("name"),
                         rs.getDate("borrow_date"),
-                        rs.getDate("end_data"),
-                        rs.getDate("return_data"),
+                        rs.getDate("end_date"),
+                        rs.getDate("return_date"),
                         rs.getString("illegal"),
                         rs.getString("manager_id"));
                 borrows.add(borrow);
-                System.out.println(borrow.getBookname());
+                System.out.println(rs.getDate("borrow_date"));
             }
         }catch (SQLException e){
             e.printStackTrace();

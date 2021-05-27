@@ -37,7 +37,7 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="borrow" items="${sessionScope.borrow}"
+        <c:forEach var="borrow" items="${sessionScope.borrows}"
                    varStatus="status">
             <tr>
                 <td>${borrow.bookname}</td>

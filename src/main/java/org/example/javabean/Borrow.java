@@ -10,7 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Borrow {
-    private int  bookname;
+    private String  bookname;
     private Date borrow_date;
     private Date end_data;
     private Date return_data;

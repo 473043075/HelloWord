@@ -1,7 +1,4 @@
-<%@page import="java.util.List" %>
-<%@page import="java.util.ArrayList" %>
-<%@page import="org.example.javabean.Book" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
   Created by IntelliJ IDEA.
@@ -10,18 +7,17 @@
   Time: 18:48
   To change this template use File | Settings | File Templates.
 --%>
-
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Layui</title>
+    <title>查询</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="layui/css/layui.css"
           media="all">
-    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
     <style>
         .wrap-div {
             display: -webkit-box;
@@ -75,10 +71,17 @@
                     <div class="wrap-div">${book.description}</div>
                 </td>
                 <td>
-                    <a class="layui-btn layui-btn-primary layui-btn-xs"
-                       lay-event="detail">查看</a>
-                    <a class="layui-btn layui-btn-xs"
-                       lay-event="edit">借阅</a>
+                    <button
+                            class="layui-btn layui-btn-primary layui-btn-xs detail"
+                            id="info" index="${status.index}">查看
+                    </button>
+                    <button class="layui-btn layui-btn-xs borrow"
+                            id="borrow" index="${status.index}">借阅
+                    </button>
+                    <button class="layui-btn layui-btn-xs borrow"
+                            id="store" index="${book.id}">
+                            ${book.sort?"已收藏":"收藏"}
+                    </button>
                 </td>
             </tr>
         </c:forEach>
@@ -91,11 +94,41 @@
 </body>
 <script src="layui/layui.js" charset="utf-8"></script>
 <script>
-    layui.use(['laypage', 'layer'], function () {
+    layui.use(['laypage', 'layer','element'], function () {
         var laypage = layui.laypage
-            , layer = layui.layer;
+            , layer = layui.layer
+            ,elment=layui.element;
         var $ = layui.$;
-        var count = 0, page = 1, limit = 5;
+        var count = 0, current = 1, limit = 5;
+        $(document).on('click','#info',function (){
+            var name=$(this).parents("tr").find("td").eq(0).text();
+            layer.msg(name);
+        });
+        $(document).on('click','#store',function () {
+            var name=$(this).parents("tr").find("td").eq(0).text();
+            var bookid=$(this).attr("index");
+            $.ajax({
+                type: 'POST',
+                url: "/book/store",
+                data: JSON.stringify({user:${sessionScope.id}+"",book:bookid}),
+                contentType: "applicstion/json;charset=utf-8",
+                success:function (data){
+                    layer.msg(data);
+                    if (data=="借阅成功"){
+                        $('#store').text("已收藏");
+                    }
+                }
+            });
+        });
+        $(document).on('click','#borrow',function (){
+            var name=$(this).parents("tr").find("td").eq(0).text();
+            console.log($(this).attr("index"));
+            layer.msg(name);
+        });
+        $("#search").click(function (){
+            var keyword=$("#keyword").val();
+            alert(keyword);
+        });
 
         $(document).ready(function () {
             //进入页面先加载数据
@@ -104,7 +137,7 @@
             laypage.render({
                 elem: 'page',
                 count: count,
-                curr: page,
+                curr: current,
                 limits: [5, 10, 15, 20],
                 limit: limit,
                 layout: ['count', 'prev', 'page', 'next', 'limit'],
@@ -112,19 +145,10 @@
                     if (!first) {
                         getContent(obj.curr, obj.limit);
                         //更新当前页码和当前每页显示条数
-                        page = obj.curr;
+                        current = obj.curr;
                         limit = obj.limit;
                     }
                 }
-            });
-            $("div#content a:first").click(function () {
-                layer.open({
-                    type: 1,
-                    skin: 'layui-layer-rim', //加上边框
-                    area: ['420px', '240px'], //宽高
-                    content: '弹出层'
-                });
-                console.log("点击了a标签");
             });
         });
 

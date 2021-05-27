@@ -18,6 +18,7 @@ public class UserService {
             if (password.equals(user.getPassword())) {
                 session.setAttribute("user", user);
                 session.setAttribute("isLogin", true);
+                session.setAttribute("id",user.getUsername());
                 return "1";
             } else {
                 return "密码错误";
@@ -48,5 +49,19 @@ public class UserService {
         } else {
             return "用户已存在";
         }
+    }
+
+    public User getUserInfo(String username) {
+        return userDao.selectOne(username);
+    }
+    public String uploadUserInfo(User user, HttpSession session) {
+        int result = 0;
+        result = userDao.updateOne(user);
+        if (result > 0) {
+            User userInfo = getUserInfo(user.getUsername());
+            session.setAttribute("user", userInfo);
+            return "更新成功";
+        }
+        return "更新失败";
     }
 }

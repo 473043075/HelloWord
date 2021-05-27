@@ -9,12 +9,19 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" >
     <title>图书馆管理端</title>
     <link rel="stylesheet" href="/layui/css/layui.css">
+    <style>
+        .layui-show{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body class="layui-layout-body">
 <%

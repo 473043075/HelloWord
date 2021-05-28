@@ -9,11 +9,16 @@
 <html>
 <head>
     <title>留言板</title>
+    <style>
+        form{
+
+        }
+    </style>
 </head>
 <body>
 <form class="layui-form" action="" method="post">
     <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">文本域</label>
+        <label class="layui-form-label">请在下方文本框内输入你的留言</label>
         <div class="layui-input-block">
             <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
         </div>

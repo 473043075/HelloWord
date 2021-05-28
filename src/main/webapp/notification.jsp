@@ -11,6 +11,14 @@
     <title>通知中心</title>
 </head>
 <body>
-notification
+<div class="layui-bg-gray" style="padding: 30px;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md6">
+            <div class="layui-panel">
+                <div style="padding: 50px 30px;">系统正在进行维护，若在使用过程中存在问题，请在留言板提交反馈信息</div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

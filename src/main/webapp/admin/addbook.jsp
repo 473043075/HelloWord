@@ -79,7 +79,7 @@
         </div>
     </div>
 </form>
-
+<script src="../layui/layui.js" charset="utf-8"></script>
 <script>
     //Demo
     layui.use('form', function(){

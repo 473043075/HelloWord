@@ -1,4 +1,3 @@
-<%@page import="org.example.javabean.Admin" %>
 <%--
   Created by IntelliJ IDEA.
   User: 小豆芽
@@ -22,16 +21,12 @@
     </style>
 </head>
 <body class="layui-layout-body">
-
-<% Admin user = (Admin) request.getSession().getAttribute("admin");%>
-
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <div class="layui-logo" style="font-size: 25px">图书馆管理端</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:;">
-                    <img src="<%=user.getUsername()%>" class="layui-nav-img">
+                <a href="javascript:;"><img src="//t.cn/RCzsdCq" class="layui-nav-img">
                     管理员
                 </a>
                 <dl class="layui-nav-child">
@@ -107,10 +102,12 @@
     layui.use(['element'], function () {
         var element = layui.element;
         var $ = layui.$;
+
         $("[name=borrow]").click(function () {
             //获取当前项的id和content
             var id = $(this).attr("id");
             var content = $(this).attr("content");
+
             //判断标签是否存在
             if ($("li[lay-id=" + id + "]").length == 0) {
                 //添加新标签

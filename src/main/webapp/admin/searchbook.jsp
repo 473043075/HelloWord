@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,10 +57,11 @@
             <th>作者</th>
             <th>分类</th>
             <th>描述</th>
-            <th>操作</th>
         </tr>
         </thead>
+
         <tbody>
+
         <c:forEach var="book" items="${sessionScope.books}"
                    varStatus="status">
             <tr>
@@ -81,11 +83,11 @@
 <script src="../layui/layui.js" charset="utf-8"></script>
 <script>
     layui.use(['laypage', 'layer','element'], function () {
-        var laypage = layui.laypage
-            , layer = layui.layer
-            ,elment=layui.element;
-        var $ = layui.$;
-        var count = 0, current = 1, limit = 5;
+            var laypage = layui.laypage
+                , layer = layui.layer
+                ,elment=layui.element;
+            var $ = layui.$;
+            var count = 0, current = 1, limit = 5;
             $(document).ready(function () {
                 //进入页面先加载数据
                 getContent(1, limit);
@@ -111,7 +113,7 @@
             function getContent(page, size) {
                 $.ajax({
                     type: 'POST',
-                    url: "/book/search",
+                    url: "/admin/book/search",
                     async: false, //开启同步请求，为了保证先得到count再渲染表格
                     data: JSON.stringify({
                         pageNum: page,
@@ -122,6 +124,7 @@
                         $('#content').load(location.href + " #content");
                         //count从Servlet中得到
                         count = data;
+                        console.log(count);
                     }
                 });
             }

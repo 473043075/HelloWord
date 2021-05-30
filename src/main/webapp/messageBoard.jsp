@@ -8,17 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>留言板</title>
-    <style>
-        form{
-
-        }
-    </style>
+    <title>Title</title>
 </head>
 <body>
-<form class="layui-form" action="" method="post">
+<form class="layui-form" action="">
     <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">请在下方文本框内输入你的留言</label>
+        <label class="layui-form-label">文本域</label>
         <div class="layui-input-block">
             <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
         </div>
@@ -35,6 +30,7 @@
     //Demo
     layui.use('form', function(){
         var form = layui.form;
+
         //监听提交
         form.on('submit(formDemo)', function(data){
             layer.msg(JSON.stringify(data.field));
@@ -43,4 +39,6 @@
     });
 </script>
 </body>
+
+
 </html>

@@ -1,6 +1,4 @@
-<%@page import="org.example.javabean.User" %>
 <%@page import="org.example.javabean.Admin" %>
-
 <%--
   Created by IntelliJ IDEA.
   User: 小豆芽
@@ -15,7 +13,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" >
     <title>图书馆管理端</title>
-    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="../layui/css/layui.css">
     <style>
         .layui-show{
             width: 100%;
@@ -24,23 +22,22 @@
     </style>
 </head>
 <body class="layui-layout-body">
-<%
-    Admin user = (Admin) request.getSession().getAttribute("admin");
-%>
+
+<% Admin user = (Admin) request.getSession().getAttribute("admin");%>
+
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <div class="layui-logo" style="font-size: 25px">图书馆管理端</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="<%=user.getUsername()%>"
-                         class="layui-nav-img">
+                    <img src="<%=user.getUsername()%>" class="layui-nav-img">
                     管理员
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" name="borrow"
                            title="个人信息"
-                           content="./personalInfo.jsp" id="4">个人信息
+                           content="./personalInfo.jsp" id="2">个人信息
                     </a></dd>
                     <dd><a href="javascript:;" name="borrow"
                            title="系统设置"
@@ -61,41 +58,24 @@
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" name="borrow"
                                title="查询图书"
-                               content="./searchBooks.jsp" id="2"
+                               content="searchbook.jsp" id="3"
                         >查询图书
                         </a></dd>
                         <dd><a href="javascript:;" name="borrow"
-                               title="借阅历史"
-                               content="./borrowHistory.jsp" id="3">
-                            借阅历史</a></dd>
+                               title="新增图书"
+                               content="addbook.jsp" id="4">
+                            新增图书</a></dd>
+                        <dd><a href="javascript:;" name="borrow"
+                               title="修改图书"
+                               content="updatebook.jsp" id="5"
+                        >修改图书
+                        </a></dd>
+                        <dd><a href="javascript:;" name="borrow"
+                               title="删除图书"
+                               content="deletebook.jsp" id="6"
+                        >删除图书
+                        </a></dd>
                     </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">读者服务</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" name="borrow"
-                               title="个人信息"
-                               content="./personalInfo.jsp" id="4">
-                            个人信息</a></dd>
-                        <dd><a href="javascript:;" name="borrow"
-                               title="图书收藏"
-                               content="./favoriteList.jsp" id="5">
-                            图书收藏</a></dd>
-                        <dd><a href="javascript:;" name="borrow"
-                               title="在借图书"
-                               content="./borrowList.jsp" id="6">
-                            在借图书</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;" name="borrow"
-                       title="留言板"
-                       content="./messageBoard.jsp" id="7">留言板</a>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;" name="borrow"
-                       title="通知中心"
-                       content="./notification.jsp" id="8">通知中心</a>
                 </li>
             </ul>
         </div>
@@ -121,7 +101,7 @@
         © 软件工程专业
     </div>
 </div>
-<script src="./layui/layui.js"></script>
+<script src="../layui/layui.js"></script>
 <script>
     //JavaScript代码区域
     layui.use(['element'], function () {
